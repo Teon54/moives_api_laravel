@@ -1,6 +1,6 @@
-<div class="flex flex-col space-y-1">
+<div class="flex flex-col space-y-1 cursor-pointer">
     <div>
-        <img class="rounded" src="{{ $cover }}" alt="Parasite">
+        <img class="rounded shadow-gray-700 hover:shadow-gray-900 transition-all shadow-2xl" src="{{ $cover }}" alt="Parasite">
     </div>
     <div>
         <span class="text-gray-200">{{ $name }}</span>
