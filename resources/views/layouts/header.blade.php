@@ -1,6 +1,6 @@
 <header class="">
     <div class="flex flex-col md:flex-row items-center justify-between m-4">
-        <div class="flex flex-col md:flex-row mb-3 md:mb-0 items-center">
+        <nav class="flex flex-col md:flex-row mb-3 md:mb-0 items-center">
             <x-movie-svg with="32px" height="32px" />
 
             <span class="text-white font-bold md:mr-5">
@@ -11,7 +11,7 @@
                 <li class="cursor-pointer hover:text-gray-500">TV Shows</li>
                 <li class="cursor-pointer hover:text-gray-500">Actors</li>
             </ul>
-        </div>
+        </nav>
         <div class="flex items-center">
             <form>
                 <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
