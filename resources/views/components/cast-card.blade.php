@@ -1,6 +1,6 @@
 <div {{ $attributes->merge(['class' => 'flex flex-col space-y-1 cursor-pointer']) }}>
     <div>
-        <img class="rounded shadow-gray-700 hover:shadow-gray-900 transition-all shadow-xl" src="{{ $photo }}" alt="Parasite">
+        <img class="rounded shadow-gray-700 hover:shadow-gray-900 transition-all shadow-xl" src="{{ $photo }}" alt="{{ $realname }}">
     </div>
     <div class="px-2">
         <h6 class="text-gray-200 text-xl">{{ $realname }}</h6>
