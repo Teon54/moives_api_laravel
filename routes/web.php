@@ -1,16 +1,15 @@
 <?php
 
-use App\Http\Controllers\MovieShowController;
+use App\Http\Controllers\MoviesIndexController;
+use App\Http\Controllers\MoviesShowController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::get('/', MoviesIndexController::class)->name('movies.index');
 
-Route::get('/movie/{id}',MovieShowController::class)
-    ->name('movie.show');
+Route::get('/movie/{id}',MoviesShowController::class)
+    ->name('movies.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
