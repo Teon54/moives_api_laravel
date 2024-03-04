@@ -7,9 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Movies</title>
     @vite('resources/css/app.css')
+    <livewire:styles />
 </head>
 <body class="bg-gray-800">
     @include('layouts.header')
     @yield('content')
+    <livewire:scripts />
 </body>
 </html>

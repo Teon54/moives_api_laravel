@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Http;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class MovieShowTest extends TestCase
@@ -45,6 +47,18 @@ class MovieShowTest extends TestCase
 
         $response->assertSuccessful();
         $response->assertSee('Papá o Mamá');
+    }
+
+    public function test_search_drop_down()
+    {
+        Http::fake([
+            'https://api.themoviedb.org/3/search/movie?query=jumanji' => Http::response($this->fakeSearchMovie(),200)
+        ]);
+
+        Livewire::test('search-dropdown')
+            ->assertDontSee('jumanji')
+            ->set('search', 'jumanji')
+            ->assertSee('Jumanji');
     }
 
     public function fakePopularMovies(): array
@@ -107,6 +121,7 @@ hirlwind adventure across the continents. Free from the prejudices of her times,
             'total_results' => 855229,
         ];
     }
+
 
     public function fakeGenres(): array
     {
@@ -189,6 +204,40 @@ hirlwind adventure across the continents. Free from the prejudices of her times,
                     "name" => "Western",
                 ],
             ]
+        ];
+    }
+
+    public function fakeSearchMovie(): array
+    {
+        return [
+            'page' => 1,
+            'results' => [
+                [
+                    "adult" => false,
+                    "backdrop_path" => "/pYw10zrqfkdm3yD9JTO6vEGQhKy.jpg",
+                    "genre_ids" => [
+                        27,
+                        33,
+                        45,
+                    ],
+                    "id" => 8844,
+                    "original_language" => "en",
+                    "original_title" => "Jumanji",
+                    "overview" => "
+When siblings Judy and Peter discover an enchanted board game that opens the door to a magical world, they unwittingly invite Alan -- an adult who's been trappe
+ ▶
+",
+                    "popularity" => 13.642,
+                    "poster_path" => "/v2XHtmVqpERPy0HA1y9wltoeEgW.jpg",
+                    "release_date" => "1995-12-15",
+                    "title" => "Jumanji",
+                    "video" => false,
+                    "vote_average" => 7.241,
+                    "vote_count" => 10082,
+                ],
+                'total_pages' => 42762,
+                'total_results' => 855229,
+            ],
         ];
     }
 
