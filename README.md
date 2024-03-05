@@ -1,1 +1,1 @@
-<img src="movie-mockup.png" style="border-radius: 10px" alt="Movie Site Mockup">
+<img src="movie-mockup.png" style="border-radius: 30px" alt="Movie Site Mockup">
