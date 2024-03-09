@@ -18,9 +18,7 @@
             </ul>
         </nav>
         <div class="flex items-center">
-            <livewire:search-dropdown>
-
-            </livewire:search-dropdown>
+            <livewire:search-dropdown />
             <img class="rounded-full w-7 ml-3" src="{{ url('/') }}/profile.jpg" alt="profile">
         </div>
     </div>

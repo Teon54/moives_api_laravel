@@ -8,10 +8,13 @@
     <title>Movies</title>
     @vite('resources/css/app.css')
     <livewire:styles />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-gray-800">
     @include('layouts.header')
     @yield('content')
+
     <livewire:scripts />
+
 </body>
 </html>

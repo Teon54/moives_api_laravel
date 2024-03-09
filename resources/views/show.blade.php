@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="flex flex-col md:flex-row mb-4 p-4 md:p-10 space-y-5 md:space-x-14">
+    <div x-data="{ isOpen: false }" class="flex flex-col md:flex-row mb-4 p-4 md:p-10 space-y-5 md:space-x-14">
         <div>
-            <img class="max-w-full md:m-0 md:max-w-96 rounded-md" src="https://image.tmdb.org/t/p/original{{ $movie['poster_path']  }}" alt="Movie Poster">
+            <img class="max-w-full md:m-0 md:max-w-96 rounded-md" src="https://image.tmdb.org/t/p/original{{ $movie['poster_path'] }}" alt="Movie Poster">
         </div>
         <div>
             <h2 class="title text-gray-100 font-bold text-3xl mb-3">{{ $movie['original_title'] }}</h2>
@@ -39,12 +39,17 @@
                 </div>
             </div>
             @if(count($movie['videos']['results']) > 0)
-                <a href="https://youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}">
-                    <x-primary-button>
-                        <x-play-button-svg with="20px" height="20px" class="mr-2" />
-                        Play Trailer
-                    </x-primary-button>
-                </a>
+                <x-primary-button @click="isOpen = true">
+                    <x-play-button-svg with="20px" height="20px" class="mr-2" />
+                    Play Trailer
+                </x-primary-button>
+                <div class="fixed inset-0 bg-gray-900 bg-opacity-30 backdrop-blur-sm" x-show.transition.opacity="isOpen" style="display: none"></div>
+                <div class="fixed top-1/4 left-1/4 z-10 w-1/2 h-3/5 bg-gray-700 rounded-md backdrop-blur-2xl" x-show.transition.opacity="isOpen" style="display: none" @click.away="isOpen = false" @keydown.esc.window="isOpen = false">
+                    <span class="z-20 cursor-pointer absolute text-gray-200 text-3xl right-4 top-4" @click="isOpen = false">&times;</span>
+                    <div class="relative aspect-w-16 aspect-h-9 w-full h-full">
+                        <iframe class="absolute w-[80%] h-3/4 right-[10%] bottom-5 rounded-md" src="https://youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
             @endif
         </div>
     </div>
@@ -58,13 +63,26 @@
         </div>
     </div>
     <x-hr-line />
-    <div class="p-8">
+    <div class="p-8" x-data="{ isOpen: false, image: '' }">
         <h4 class="text-gray-100 font-bold text-2xl mb-8">Images</h4>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($movie['images']['backdrops'] as $image)
-                <img class="rounded-md cursor-pointer shadow shadow-orange-500 hover:shadow-orange-700" src="https://image.tmdb.org/t/p/original{{ $image['file_path']  }}" alt="{{ $movie['original_title'] }}">
-
+                <div>
+                    <a href="#" @click.prevent="
+                    isOpen=true
+                    image='https://image.tmdb.org/t/p/original{{ $image['file_path']  }}'
+                    ">
+                        <img class="rounded-md cursor-pointer shadow shadow-orange-500 hover:shadow-orange-700" src="https://image.tmdb.org/t/p/original{{ $image['file_path']  }}" alt="{{ $movie['original_title'] }}">
+                    </a>
+                </div>
             @endforeach
+        </div>
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-30 backdrop-blur-sm" x-show.transition.opacity="isOpen" style="display: none"></div>
+        <div class="fixed top-1/4 left-1/4 z-10 w-1/2 h-1/2 bg-gray-700 rounded-md backdrop-blur-2xl" x-show.transition.opacity="isOpen" style="display: none" @click.away="isOpen = false" @keydown.esc.window="isOpen = false">
+            <span class="z-20 cursor-pointer absolute text-gray-200 text-3xl right-4 top-4" @click="isOpen = false">&times;</span>
+            <div class="relative aspect-w-16 aspect-h-9 w-full h-full">
+                <img class="absolute bottom-0 top-0 rounded-md" :src="image" alt="Poster">
+            </div>
         </div>
     </div>
 
