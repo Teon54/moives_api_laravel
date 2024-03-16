@@ -5,29 +5,13 @@
         <h2 class=" font-bold text-xl text-orange-500 uppercase">Popular Movies</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10 mt-3">
             @foreach($popularMovies as $movie)
-                @php
-                    $genresArray = [];
-                @endphp
-                @foreach($movie['genre_ids'] as $genre)
-                    @php
-                        $genresArray[] = $genres->get($genre);
-                    @endphp
-                @endforeach
-                <x-movie-card :movie="$movie" :genres="$genresArray" />
+                <x-movie-card :movie="$movie"/>
             @endforeach
         </div>
         <h2 class=" font-bold text-xl text-orange-500 uppercase mt-10">Now Playing</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10 mt-3">
             @foreach($nowPlayingMovies as $movie)
-                @php
-                    $genresArray = [];
-                @endphp
-                @foreach($movie['genre_ids'] as $genre)
-                    @php
-                        $genresArray[] = $genres->get($genre);
-                    @endphp
-                @endforeach
-                <x-movie-card :movie="$movie" :genres="$genresArray" />
+                <x-movie-card :movie="$movie"/>
             @endforeach
         </div>
     </div>

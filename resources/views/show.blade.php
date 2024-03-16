@@ -3,19 +3,17 @@
 @section('content')
     <div x-data="{ isOpen: false }" class="flex flex-col md:flex-row mb-4 p-4 md:p-10 space-y-5 md:space-x-14">
         <div>
-            <img class="max-w-full md:m-0 md:max-w-96 rounded-md" src="https://image.tmdb.org/t/p/original{{ $movie['poster_path'] }}" alt="Movie Poster">
+            <img class="max-w-full md:m-0 md:max-w-96 rounded-md" src="{{ $movie['poster_path'] }}" alt="Movie Poster">
         </div>
         <div>
             <h2 class="title text-gray-100 font-bold text-3xl mb-3">{{ $movie['original_title'] }}</h2>
             <div class="flex items-center text-gray-300 space-x-1 mb-10">
                 <x-star-svg with="16px" height="16px"/>
-                <span>{{ round($movie['vote_average'] * 10) }}%</span>
+                <span>{{ $movie['vote_average'] }}</span>
                 <span>|</span>
-                <span>{{ \Carbon\Carbon::make($movie['release_date'])->toFormattedDateString() }}</span>
+                <span>{{ $movie['release_date'] }}</span>
                 <span>|</span>
-                @foreach($movie['genres'] as $genre)
-                    <span>{{ $genre['name'] }}</span> @if(!$loop->last) , @else @endif
-                @endforeach
+                <span>{{ $movie['genres'] }}</span>
             </div>
             <p class="text-gray-300 max-w-3xl mb-10">
                 {{ $movie['overview'] }}
@@ -25,7 +23,7 @@
                     Featured Crew
                 </h5>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    @foreach($movie['credits']['crew'] as $crew)
+                    @foreach($movie['crew'] as $crew)
                         <div>
                             <h6 class="font-semibold text-white">
                                 {{ $crew['job'] }}
@@ -57,7 +55,7 @@
     <div class="p-8">
         <h4 class="text-gray-100 font-bold text-2xl mb-8">Cast</h4>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10">
-            @foreach($movie['credits']['cast'] as $cast)
+            @foreach($movie['cast'] as $cast)
                 <x-cast-card class="w-full mb-8 md:mb-0 md:w-48" realname="{{ $cast['original_name'] }}" name="{{ $cast['name'] }}" photo="https://image.tmdb.org/t/p/original{{ $cast['profile_path'] }}" />
             @endforeach
         </div>
@@ -66,7 +64,7 @@
     <div class="p-8" x-data="{ isOpen: false, image: '' }">
         <h4 class="text-gray-100 font-bold text-2xl mb-8">Images</h4>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach($movie['images']['backdrops'] as $image)
+            @foreach($movie['images'] as $image)
                 <div>
                     <a href="#" @click.prevent="
                     isOpen=true
