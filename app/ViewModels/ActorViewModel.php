@@ -39,13 +39,20 @@ class ActorViewModel extends ViewModel
         $castMovies = collect($this->credits)->get('cast');
 
         return collect($castMovies)
-            ->where('media_type', 'movie')
             ->sortByDesc('popularity')
             ->take(5)
             ->map(function ($movie) {
+                if (isset($movie['title'])){
+                    $title = $movie['title'];
+                } elseif (isset($movie['name'])) {
+                    $title = $movie['name'];
+                } else {
+                    $title = 'Untitled';
+                }
                 return collect($movie)->merge([
                     'poster_path' => "https://image.tmdb.org/t/p/original" . $movie['poster_path'],
-                    'title' => $movie['title'] ?? 'Untitled',
+                    'title' => $title,
+                    'linkToPage' => $movie['media_type'] === 'movie' ? route('movies.show',$movie['id']) : route('tv.show',$movie['id']),
                 ]);
             });
     }
@@ -76,6 +83,7 @@ class ActorViewModel extends ViewModel
                 'release_year' => isset($releaseDate) ? Carbon::parse($releaseDate)->format('Y') : 'Future',
                 'title' => $title,
                 'character' => $movie['character'] ?? '',
+                'linkToPage' => $movie['media_type'] === 'movie' ? route('movies.show',$movie['id']) : route('tv.show',$movie['id']),
             ]);
         })->sortByDesc('release_date');
     }

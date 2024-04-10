@@ -62,7 +62,7 @@
                 </h5>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     @foreach($knownForMovies as $movie)
-                        <a href="{{ route('movies.show',$movie['id']) }}">
+                        <a href="{{ $movie['linkToPage'] }}">
                             <div class="flex flex-col space-y-1 cursor-pointer">
                                 <div>
                                     <img class="rounded shadow-gray-700 hover:shadow-gray-900 transition-all shadow-xl"
@@ -87,7 +87,7 @@
                 <li class="list-disc leading-loose text-gray-200">
                     <span>{{ $credit['release_year'] }}</span>
                     <span> . </span>
-                    <a href="{{ route('movies.show',$credit['id']) }}">
+                    <a href="{{ $credit['linkToPage'] }}">
                         <span class="font-semibold">{{ $credit['title'] }}</span>
                     </a>
                     <span> as </span>

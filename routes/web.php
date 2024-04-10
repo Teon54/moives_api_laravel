@@ -5,7 +5,15 @@ use App\Http\Controllers\ActorsIndexController;
 use App\Http\Controllers\MoviesIndexController;
 use App\Http\Controllers\MovieShowController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TvIndexController;
+use App\Http\Controllers\TvShowController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/tv', TvIndexController::class)
+    ->name('tv.index');
+
+Route::get('/tv/{id}', TvShowController::class)
+    ->name('tv.show');
 
 Route::get('/actors', ActorsIndexController::class)
     ->name('actors.index');
