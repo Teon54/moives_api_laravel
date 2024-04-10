@@ -13,7 +13,11 @@
                         Movies
                     </a>
                 </li>
-                <li class="cursor-pointer hover:text-gray-500">TV Shows</li>
+                <li class="cursor-pointer hover:text-gray-500">
+                    <a href="{{ route('tv.index') }}">
+                        Tv Shows
+                    </a>
+                </li>
                 <li class="cursor-pointer hover:text-gray-500">
                     <a href="{{ route('actors.index') }}">
                         Actors
