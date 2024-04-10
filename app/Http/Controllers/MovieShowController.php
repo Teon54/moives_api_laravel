@@ -6,7 +6,7 @@ use App\ViewModels\MovieViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class MoviesShowController extends Controller
+class MovieShowController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -17,6 +17,6 @@ class MoviesShowController extends Controller
             ->get('https://api.themoviedb.org/3/movie/' . $id . '?append_to_response=credits,videos,images')
             ->json();
         $viewModel = new MovieViewModel($movie);
-        return view('show', $viewModel);
+        return view('movies.show', $viewModel);
     }
 }

@@ -30,6 +30,6 @@ class MoviesIndexController extends Controller
             $nowPlayingMovies,
             $genres,
         );
-        return view('index', $viewModel);
+        return view('movies.index', $viewModel);
     }
 }

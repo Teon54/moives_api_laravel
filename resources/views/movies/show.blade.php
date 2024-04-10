@@ -38,29 +38,41 @@
             </div>
             @if(count($movie['videos']['results']) > 0)
                 <x-primary-button @click="isOpen = true">
-                    <x-play-button-svg with="20px" height="20px" class="mr-2" />
+                    <x-play-button-svg with="20px" height="20px" class="mr-2"/>
                     Play Trailer
                 </x-primary-button>
-                <div class="fixed inset-0 bg-gray-900 bg-opacity-30 backdrop-blur-sm" x-show.transition.opacity="isOpen" style="display: none"></div>
-                <div class="fixed top-1/4 left-1/4 z-10 w-1/2 h-3/5 bg-gray-700 rounded-md backdrop-blur-2xl" x-show.transition.opacity="isOpen" style="display: none" @click.away="isOpen = false" @keydown.esc.window="isOpen = false">
-                    <span class="z-20 cursor-pointer absolute text-gray-200 text-3xl right-4 top-4" @click="isOpen = false">&times;</span>
+                <div class="fixed inset-0 bg-gray-900 bg-opacity-30 backdrop-blur-sm" x-show.transition.opacity="isOpen"
+                     style="display: none"></div>
+                <div class="fixed top-1/4 left-1/4 z-10 w-1/2 h-3/5 bg-gray-700 rounded-md backdrop-blur-2xl"
+                     x-show.transition.opacity="isOpen" style="display: none" @click.away="isOpen = false"
+                     @keydown.esc.window="isOpen = false">
+                    <span class="z-20 cursor-pointer absolute text-gray-200 text-3xl right-4 top-4"
+                          @click="isOpen = false">&times;</span>
                     <div class="relative aspect-w-16 aspect-h-9 w-full h-full">
-                        <iframe class="absolute w-[80%] h-3/4 right-[10%] bottom-5 rounded-md" src="https://youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="absolute w-[80%] h-3/4 right-[10%] bottom-5 rounded-md"
+                                src="https://youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
                     </div>
                 </div>
             @endif
         </div>
     </div>
-    <x-hr-line />
+    <x-hr-line/>
     <div class="p-8">
         <h4 class="text-gray-100 font-bold text-2xl mb-8">Cast</h4>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10">
             @foreach($movie['cast'] as $cast)
-                <x-cast-card class="w-full mb-8 md:mb-0 md:w-48" realname="{{ $cast['original_name'] }}" name="{{ $cast['name'] }}" photo="https://image.tmdb.org/t/p/original{{ $cast['profile_path'] }}" />
+                <a href="{{ route('actors.show',$cast['id']) }}">
+                    <x-cast-card class="w-full mb-8 md:mb-0 md:w-48" realname="{{ $cast['original_name'] }}"
+                                 name="{{ $cast['character'] }}"
+                                 photo="https://image.tmdb.org/t/p/original{{ $cast['profile_path'] }}"/>
+                </a>
             @endforeach
         </div>
     </div>
-    <x-hr-line />
+    <x-hr-line/>
     <div class="p-8" x-data="{ isOpen: false, image: '' }">
         <h4 class="text-gray-100 font-bold text-2xl mb-8">Images</h4>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -70,7 +82,9 @@
                     isOpen=true
                     image='https://image.tmdb.org/t/p/original{{ $image['file_path']  }}'
                     ">
-                        <img class="rounded-md cursor-pointer shadow shadow-orange-500 hover:shadow-orange-700" src="https://image.tmdb.org/t/p/original{{ $image['file_path']  }}" alt="{{ $movie['original_title'] }}">
+                        <img class="rounded-md cursor-pointer shadow shadow-orange-500 hover:shadow-orange-700"
+                             src="https://image.tmdb.org/t/p/original{{ $image['file_path']  }}"
+                             alt="{{ $movie['original_title'] }}">
                     </a>
                 </div>
             @endforeach
@@ -79,7 +93,7 @@
         <div class="fixed top-1/4 left-1/4 z-10 w-1/2 h-1/2 bg-gray-700 rounded-md backdrop-blur-2xl" x-show.transition.opacity="isOpen" style="display: none" @click.away="isOpen = false" @keydown.esc.window="isOpen = false">
             <span class="z-20 cursor-pointer absolute text-gray-200 text-3xl right-4 top-4" @click="isOpen = false">&times;</span>
             <div class="relative aspect-w-16 aspect-h-9 w-full h-full">
-                <img class="absolute bottom-0 top-0 rounded-md" :src="image" alt="Poster">
+                <img class="absolute rounded-md" :src="image" alt="Poster">
             </div>
         </div>
     </div>
