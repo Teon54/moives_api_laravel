@@ -1,15 +1,27 @@
 <?php
 
+use App\Http\Controllers\ActorShowController;
+use App\Http\Controllers\ActorsIndexController;
 use App\Http\Controllers\MoviesIndexController;
-use App\Http\Controllers\MoviesShowController;
+use App\Http\Controllers\MovieShowController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/actors', ActorsIndexController::class)
+    ->name('actors.index');
 
-Route::get('/', MoviesIndexController::class)->name('movies.index');
+Route::get('/actors/page/{page?}', ActorsIndexController::class);
 
-Route::get('/movie/{id}',MoviesShowController::class)
+Route::get('/actor/{id}', ActorShowController::class)
+    ->name('actors.show');
+
+Route::get('/', MoviesIndexController::class)
+    ->name('movies.index');
+
+Route::get('/movie/{id}', MovieShowController::class)
     ->name('movies.show');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -21,4 +33,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
