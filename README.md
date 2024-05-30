@@ -1,4 +1,4 @@
-<img src="movie-mockup.png" style="border-radius: 30px" alt="Movie Site Mockup">
+<img src="movie-mockup.png" alt="Movie Site Mockup">
 ---
 
 # Laravel TMDB Project
